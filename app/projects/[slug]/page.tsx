@@ -51,7 +51,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
             {/* INTRO */}
             <p className="mt-6 max-w-2xl text-lg text-stone-700 leading-relaxed">
-              {project.introduction}
+              {project.description}
             </p>
 
             {/* KPI */}
