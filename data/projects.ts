@@ -205,33 +205,38 @@ learnings: [
       mainResult: "+21% email-driven revenue — turning CRM back into a growth driver",
     },
     content: {
-  context:
-    "Following the COVID period, customer behavior had changed significantly, but CRM practices hadn’t adapted. Campaigns were still sent at high volume, but engagement and conversion were declining.",
+  context: `After COVID, customer behavior had shifted — expectations, attention, and engagement patterns were no longer the same.
+  But internally, CRM practices hadn’t evolved at the same pace.
+  Campaigns were still being sent at high volume, following simple patterns — even though they no longer resonated in the same way.
+  The gap between what was sent and what people actually cared about kept growing.`,
 
-  problem:
-    "The issue wasn’t email itself — it was how it was used. Poor segmentation, repetitive messaging, and lack of strategic direction turned CRM into a low-impact channel instead of a growth driver.",
-
-  approach:
-    "I rebuilt the CRM strategy around customer value and lifecycle — focusing on relevance, segmentation, and long-term engagement instead of short-term volume.",
-
+ problem: `The issue wasn’t email itself — it was the loss of relevance.
+  Messages felt repetitive, segmentation was too broad, and there was no clear strategic direction behind campaigns.
+  For teams, activity remained high. For users, the experience became less meaningful.
+  CRM had slowly shifted from a growth lever to a background noise.`,
+  
+  approach: `We rethought CRM as a system built around customer value and lifecycle — not just volume.
+  The focus was to reconnect with what actually matters to users: relevance, timing, and intent.
+  Rather than sending more, we aimed to send better — aligning strategy, segmentation, and content with real customer behavior.`,
+  
   actions: [
-    "Restructured the database and implemented value-based segmentation.",
-    "Redefined campaign strategy based on lifecycle stages and business objectives.",
-    "Redesigned email content to shift from promotional to inspirational messaging.",
-    "Introduced automation workflows to support engagement and retention.",
-  ],
+  "Worked closely with CRM, marketing and data teams to restructure the database and implement value-based segmentation",
+  "Redefined campaign strategy based on lifecycle stages and business priorities",
+  "Redesigned email content to move from promotional pressure to more inspirational and contextual messaging",
+  "Introduced automation workflows to support engagement, retention, and long-term relationship building",
+],
 
   results: [
-    "Open rates increased by 20 points within 12 months.",
-    "Database grew by 15% with higher quality contacts.",
-    "Engagement and conversion improved significantly across campaigns.",
-  ],
+  "Open rates increased by 20 points within 12 months, reflecting stronger engagement",
+  "Database grew by 15% with higher quality and more active contacts",
+  "CRM became a more reliable contributor to revenue, with a +21% increase in email-driven performance",
+],
 
   learnings: [
-    "CRM performance depends more on relevance than volume.",
-    "Segmentation is the foundation of any effective strategy.",
-    "Email becomes a growth engine when aligned with business objectives.",
-  ],
+  "When behavior changes, strategy must change with it",
+  "Relevance always outperforms volume in the long run",
+  "CRM becomes a growth engine when it aligns with real user expectations",
+],
 },
   },
   {
@@ -245,32 +250,37 @@ learnings: [
       mainResult: "+28% insight-to-action adoption — helping teams move from analysis to decisions",
     },
     content: {
-  context:
-    "Customer data existed across CRM, analytics, and support tools. But each team worked with its own metrics and interpretation, making alignment and prioritization difficult.",
+  context: `Customer data was everywhere — across CRM, analytics, and support tools.
+  Each team had access to insights, dashboards, and reports.
+  But in practice, everyone was looking at things differently.
+  What should have helped teams align was actually creating more fragmentation — making it harder to prioritize and move forward.`,
+  
+  problem: `Teams were spending time analyzing data, but struggling to turn it into clear decisions.
+  Insights were descriptive, sometimes interesting — but rarely actionable.
+  Discussions would start from data, but often end without alignment or concrete next steps.
+  The issue wasn’t the lack of data.
+  It was the absence of a shared way to interpret and use it.`,
 
-  problem:
-    "Insights were descriptive, not actionable. Teams spent time analyzing data, but struggled to translate it into clear decisions, slowing down execution and reducing impact.",
-
-  approach:
-    "I redesigned how insights were produced and used — focusing on decision-making rather than reporting, and creating a shared framework across teams.",
-
+  approach: `We reframed insights as a decision tool — not as a reporting output.
+  The goal was to help teams move from analysis to action, by creating a shared language, clearer formats, and a structure that connects data directly to decisions.`,
+  
   actions: [
-    "Defined a unified customer signal framework across behavioral, transactional, and qualitative data.",
-    "Created decision-oriented insight formats to support product and marketing use cases.",
-    "Set up a recurring insight governance ritual connecting data, CRM, and business teams.",
-    "Tracked insight adoption and linked it to downstream business impact.",
-  ],
+  "Worked closely with data, CRM and business teams to define a unified customer signal framework",
+  "Created decision-oriented insight formats tailored to product and marketing use cases",
+  "Introduced a recurring insight governance ritual to align teams and prioritize actions",
+  "Tracked insight adoption and linked it to downstream business impact",
+],
 
   results: [
-    "Insight-to-action adoption increased by 28%.",
-    "Time to strategic decision decreased by 34%.",
-    "Cross-team alignment improved through shared data interpretation frameworks.",
-  ],
+  "Insight-to-action adoption increased by 28%",
+  "Time to strategic decision decreased by 34%, enabling faster execution",
+  "Teams aligned more easily and gained confidence in how to use data for decision-making",
+],
 
   learnings: [
     "The value of data lies in decisions, not dashboards.",
-    "Shared frameworks reduce ambiguity and speed up execution.",
-    "Insight production should be designed with the end decision in mind.",
+    "More insights don’t mean more clarity — shared interpretation does",
+    "Designing how data is used is as important as collecting it",
   ],
 },
   },
