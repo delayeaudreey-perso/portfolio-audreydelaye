@@ -19,9 +19,13 @@ export default function Home() {
   </h1>
 
   <p className="mt-7 max-w-2xl text-lg leading-relaxed text-stone-600">
-    I’ve built my approach at the intersection of users, data and business — 
-    understanding what really drives behavior, and turning it into useful, actionable systems.
-  </p>
+  I’ve built my approach at the intersection of users, data and business — 
+  understanding what really drives behavior, and turning it into useful, actionable systems.
+</p>
+
+<p className="mt-4 max-w-2xl text-lg leading-relaxed text-stone-600">
+  From CRM and customer journeys to data-driven products, I design solutions that connect business, tech and real user needs.
+</p>
 
   <p className="mt-5 text-xs text-stone-400">
     Built from real projects, not just theory.

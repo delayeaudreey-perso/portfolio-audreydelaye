@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Audrey | Product & IT Consulting",
+  title: "Audrey Delaye | Product & IT Consulting",
   description: "Consulting case studies across CRM, product, and delivery.",
 };
 
@@ -35,7 +35,7 @@ export default function RootLayout({
               href="/"
               className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-700"
             >
-              Audrey
+              Audrey Delaye
             </Link>
             <div className="flex items-center gap-8 text-sm font-medium text-stone-600">
               <Link href="/" className="transition hover:text-stone-900">
