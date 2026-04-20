@@ -23,7 +23,7 @@ export const projects: Project[] = [
   {
     slug: "esp-migration",
     title: "How to Migrate an ESP Without Losing Deliverability (or Your Mind)",    subtitle: "Migrating to a modern email platform without disrupting campaign performance.",
-    category: "CRM",
+    category: "Product",
     description:
       "A high-risk ESP migration — with teams under pressure, tight timelines, and a single mistake that could impact revenue.",
     metrics: {
@@ -61,7 +61,7 @@ export const projects: Project[] = [
     slug: "email-blacklist-management",
     title: "When Your Database starts working against you: Fixing Deliverability at Scale",
     subtitle: "Protecting sender reputation through smarter suppression and reactivation policies.",
-    category: "CRM",
+    category: "Data",
     description:
       "When poor data starts killing performance — and how to fix it.",
     metrics: {
@@ -106,7 +106,7 @@ learnings: [
     slug: "omnichannel-journey",
     title: "Adding WhatsApp Without Breaking the Customer Journey",
     subtitle: "Adding one more channel sounds simple — until it starts breaking the customer experience.",
-    category: "Product",
+    category: "Automation",
     description:
       "Why adding one channel can break everything — if you don’t design it right.",
     metrics: {
@@ -198,7 +198,7 @@ learnings: [
     slug: "email-strategy",
     title: "Rebuilding Email Performance After COVID",
     subtitle: "Repositioning email from tactical channel to strategic growth engine.",
-    category: "CRM",
+    category: "Data",
     description:
       "After COVID, email performance dropped — not because of the channel, but because it no longer matched how people behaved.",
     metrics: {
@@ -284,4 +284,107 @@ learnings: [
   ],
 },
   },
+  {
+  slug: "sports-association-automation",
+  title: "Automating the Administrative Backbone of a Growing Sports Association",
+  subtitle: "From manual chaos to seamless operations — building a scalable, zero-cost automation system",
+  category: "Product",
+
+  description:
+    "Administrative processes were manual, time-consuming, and limiting growth — until everything became fully automated.",
+
+  metrics: {
+    mainResult: "100% of membership invoicing automated — deployed in under a week",
+  },
+
+  content: {
+    context: `In 2024, a local sports association in the Lausanne area formalized its structure and introduced annual membership fees.
+    Administrative operations, however, remained entirely manual — from invoice creation to email communication and payment tracking.
+    As the association started growing, these processes became increasingly difficult to manage and scale.`,
+
+    problem: `Each new member required manual invoice creation, individual email communication, and fragmented tracking.
+    What was manageable at a small scale quickly turned into a time-consuming and error-prone process.
+    Beyond inefficiency, it was slowing down the association’s development and impacting the overall member experience.
+    The issue wasn’t complexity — it was the lack of structure and automation.`,
+
+    approach: `The objective was to simplify and automate the entire administrative workflow without introducing new tools or costs.
+    Instead of adding complexity, the focus was on leveraging existing tools and designing a system that the team could easily understand and operate.
+    Automation was approached not just as a technical solution, but as a way to make the organization more scalable and autonomous.`,
+
+    actions: [
+      "Analyzed existing workflows to identify friction points and inefficiencies",
+      "Designed a centralized database to structure membership and payment data",
+      "Leveraged Google Workspace to maintain continuity and avoid tool disruption",
+      "Developed automation scripts using Google Apps Script to generate invoices and send emails",
+      "Implemented a tracking system to monitor payments over time",
+      "Trained board members to ensure full ownership and autonomy of the system"
+    ],
+
+    results: [
+      "100% of invoices generated and sent automatically",
+      "No missed payments across all members",
+      "Membership requests sent more than 6 months earlier than previous years",
+      "Full system deployed in less than one week",
+      "Significant time saved, allowing the team to focus on developing the club"
+    ],
+
+    learnings: [
+      "Automation is not about tools — it’s about designing simple and scalable systems",
+      "Even small organizations benefit massively from structured data and workflows",
+      "The best solutions are the ones teams can actually understand and own"
+  ],
+},
+  },
+  {
+  slug: "deliverability-alerting-system",
+  title: "Rethinking Deliverability Monitoring Through Simplicity",
+  subtitle: "From an underused system to a focused, trusted alerting approach",
+  category: "Product",
+
+  description:
+    "Simplified deliverability monitoring by replacing a complex and underused system with a focused, high-impact alerting solution.",
+
+  metrics: {
+    mainResult: "15% annual budget savings — while increasing team adoption and trust in deliverability data",
+  },
+
+  content: {
+    context: `The organization relied on a deliverability monitoring system that was powerful, but rarely used by the emailing teams.
+    It was perceived as complex to configure, difficult to navigate, and lacking transparency on data sources and reliability.
+    What was meant to support performance ended up being underutilized, while still representing a significant cost.`,
+
+    problem: `The issue wasn’t the lack of data — it was the overload of it.
+    Too many metrics, too much complexity, and not enough clarity on what actually mattered.
+    Teams struggled to extract actionable insights and often disengaged from the tool entirely.
+    As a result, the system failed to deliver real operational value.`,
+
+    approach: `Rather than rebuilding a similar tool, the objective was to rethink the approach entirely.
+    The focus shifted to simplicity, relevance, and trust.
+    Instead of tracking everything, we identified a small set of critical KPIs that truly reflected deliverability health.
+    The goal was to enable teams to quickly understand performance and detect issues at a glance.`,
+
+    actions: [
+      "Analyzed existing tool usage to understand what was used, ignored, and why",
+      "Collaborated with emailing teams to define the most relevant deliverability KPIs",
+      "Designed a simplified monitoring framework focused on 4–5 key indicators",
+      "Identified and validated reliable data sources to ensure trust in the metrics",
+      "Defined a set of actionable alerts aligned with team workflows",
+      "Integrated the alerting system directly into the existing emailing platform"
+    ],
+
+    results: [
+      "15% annual budget savings by replacing an underused system",
+      "6 data sources consolidated into a simplified monitoring framework",
+      "Implementation of around 10 targeted alerts for operational use",
+      "Increased team confidence in data and performance monitoring",
+      "Faster identification and resolution of deliverability issues"
+    ],
+
+    learnings: [
+      "More data doesn’t create more value — clarity does",
+      "Adoption comes from trust and simplicity, not feature richness",
+      "The best systems are the ones teams actually use"
+    ],
+  },
+}
 ];
