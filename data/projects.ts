@@ -110,6 +110,10 @@ export const projects: Project[] = [
     category: "Product",
     description:
       "A ~6-month migration from Salesforce Marketing Cloud to BlueShift for a dietary supplements company, run without interrupting customer communication.",
+    image: {
+      src: "/projects/migrate_esp.jpg",
+      alt: "Migrating email journeys to a new ESP without interrupting customer communication",
+    },
     metrics: {
       mainResult: "Zero service interruption",
       label: "Deliverability better than the previous ESP",
@@ -232,6 +236,10 @@ export const projects: Project[] = [
     category: "Data",
     description:
       "Diagnosing why risky email addresses kept reaching client databases, and rebuilding validation to stop it at the source.",
+    image: {
+      src: "/projects/database_against_you.jpg",
+      alt: "Diagnosing risky email addresses in client databases",
+    },
     metrics: {
       mainResult: "99% deliverability",
       label: "-42% hard-bounce rate · +2–3 pts open rate · +0.5 pt click rate",
@@ -325,6 +333,10 @@ export const projects: Project[] = [
     category: "Data",
     description:
       "The client was a world-renowned ski resort whose CRM had been dormant for nearly two years after COVID — no active platform, a non-compliant database and customer history stored in a JSON file.",
+    image: {
+      src: "/projects/email_covid.jpg",
+      alt: "Rebuilding the email channel for a mountain ski resort after COVID",
+    },
     metrics: {
       mainResult: "~60K → ~25K contacts",
       label: "after GDPR cleanup and email validation",
@@ -438,6 +450,10 @@ export const projects: Project[] = [
     category: "Data",
     description:
       "The resort had years of customer reviews across TripAdvisor and Google Reviews — but no structured way to know what customers actually thought about the overall experience.",
+    image: {
+      src: "/projects/listen_customers.jpg",
+      alt: "Turning years of customer reviews into product insight",
+    },
     metrics: {
       mainResult: "Reviews → insight → product opportunities",
       label:
