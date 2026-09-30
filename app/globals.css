@@ -6,11 +6,23 @@
   --surface: #ffffff;
   --muted: #78716c;
   --line: #e7e5e4;
+
+  /* About page accents — scoped usage, existing pages unaffected */
+  --about-cream: #faf8f4;
+  --about-blush: #faf1ef;
+  --about-blush-strong: #f1dfe0;
+  --about-accent: #b8706a;
+  --about-accent-ink: #98504b;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-about-cream: var(--about-cream);
+  --color-about-blush: var(--about-blush);
+  --color-about-blush-strong: var(--about-blush-strong);
+  --color-about-accent: var(--about-accent);
+  --color-about-accent-ink: var(--about-accent-ink);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }

@@ -41,10 +41,13 @@ export default function RootLayout({
               <Link href="/" className="transition hover:text-stone-900">
                 Home
               </Link>
-              <Link href="/#insights" className="transition hover:text-stone-900">
-  Insights
-</Link>
-              <Link href="/#contact" className="transition hover:text-stone-900">
+              <Link href="/about" className="transition hover:text-stone-900">
+                About
+              </Link>
+              <Link href="/projects" className="transition hover:text-stone-900">
+                Projects
+              </Link>
+              <Link href="/contact" className="transition hover:text-stone-900">
                 Contact
               </Link>
             </div>
