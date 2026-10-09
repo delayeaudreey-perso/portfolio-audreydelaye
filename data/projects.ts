@@ -60,11 +60,42 @@ export type ProjectContent = {
   comparison?: {
     heading: string;
     intro?: string;
-    options: { label: string; title?: string; description: string; tag?: string }[];
+    options: {
+      label: string;
+      title?: string;
+      description: string;
+      tag?: string;
+      // Optional: when any option has these, the key decision renders as a
+      // detailed trade-off (advantages and limits per option).
+      advantages?: string[];
+      limits?: string[];
+    }[];
     decision?: string;
+    // Optional: states the decision itself when the chosen option's own
+    // description doesn't (used by the detailed trade-off layout).
+    decisionText?: string;
     closing?: string;
   };
   status?: { steps: string[] };
+  // Optional: phased roadmap where each phase carries an explicit, honest
+  // status (so planned work is never presented as shipped).
+  roadmap?: {
+    heading: string;
+    intro?: string;
+    phases: {
+      label: string;
+      name: string;
+      points: string[];
+      status: { label: string; state: "live" | "progress" | "planned"; note?: string };
+    }[];
+    note?: string;
+  };
+  // Optional: groups of target KPIs (targets, not results).
+  successFramework?: {
+    heading: string;
+    groups: { name: string; items: string[] }[];
+    note?: string;
+  };
   secondaryMetric?: {
     value: string;
     label: string;
@@ -95,6 +126,9 @@ export type Project = {
     context?: string;
   };
   content: ProjectContent;
+  // Optional: page-specific SEO metadata. Projects without it inherit the
+  // site-wide metadata.
+  seo?: { title: string; description: string };
   // Optional: widens the main content column for case studies that need
   // more room to breathe. Existing projects omit this and keep the
   // default (narrower) column width.
@@ -1008,6 +1042,441 @@ export const projects: Project[] = [
         "Unifying a product is not the same as putting products together. The hard part isn’t simply merging interfaces or systems — it’s deciding what the new product should mean to users.",
         "Product strategy starts with boundaries. Not everything needs to be unified; a strong product vision also defines what should remain outside the customer-facing experience.",
         "Simplification is a product decision. When customers need to remember which tool to open, the product is exposing internal complexity — the goal of the unified platform is to make that complexity disappear from the customer’s journey.",
+      ],
+    },
+  },
+  {
+    slug: "partner-autonomy-documentation",
+    title: "Turning Partner Support Requests Into Product Autonomy",
+    subtitle:
+      "Understanding why partners depend on internal teams for routine tasks — and designing a measurable path toward self-service.",
+    category: "Product",
+    description:
+      "A discovery and strategy project, currently pre-launch. The 57% comes from analysing and classifying operational requests; it still has to be validated by a pilot and is not a reduction already achieved.",
+    image: {
+      src: "/projects/partner-autonomy.svg",
+      alt: "Task-based guides connected to partner journeys, bypassing the internal team",
+    },
+    metrics: {
+      mainResult: "57%",
+      label: "of analysed support requests identified as potentially avoidable",
+      context: "Observed in the request analysis · to be validated by the pilot · no reduction achieved yet",
+    },
+    content: {
+      situationHeading: "Our teams were doing work our partners should have been able to do themselves.",
+      context:
+        "Partners sent around 175 requests a month to internal teams, many of them recurring operational tasks. Answers took 4 to 9 days. Each request mobilised experts, and 46% of the Product effort delivered was absorbed by run work — capacity that wasn’t available for the roadmap.",
+      problem:
+        "Was information missing, were workflows too complicated, or were partners simply unable to perform certain actions independently?",
+      stats: [
+        { value: "~175", label: "partner requests / month" },
+        { value: "4–9 days", label: "response time" },
+        { value: "46%", label: "of delivered Product effort absorbed by run" },
+      ],
+      narrative: [
+        {
+          heading: "Measuring the cost of dependency",
+          body: [
+            "I analysed the operational requests partners send to internal teams, to separate one-off needs from recurring ones — and to see which of them partners could, in principle, handle themselves.",
+            "The analysis and classification of these requests identified 57% as potentially avoidable. That is an observed share of requests, not a reduction already achieved: the classification still has to be validated by the pilot.",
+            "That number matters beyond support. Every avoidable request takes an expert away from product work, so partner dependency has a direct opportunity cost for the roadmap.",
+          ],
+          bullets: ["57% potentially avoidable (to be validated)", "~175 requests / month", "46% of delivered effort absorbed by run"],
+        },
+        {
+          heading: "Prioritising opportunities through demand analysis",
+          body: [
+            "I grouped recurring requests into six major families, then cross-referenced request frequency, existing documentation and the feasibility of independent execution.",
+            "Around two-thirds of the potentially avoidable request volume already had internal documentation that could be adapted.",
+            "That suggested a practical starting point: focus first on tasks partners could already perform but didn’t know how to. It would let us test the impact of documentation without consuming the engineering capacity we were trying to recover.",
+          ],
+          bullets: [
+            "Email targeting",
+            "Offer creation",
+            "Offer verification",
+            "Product management",
+            "Account access",
+            "Order workflows",
+          ],
+          flow: {
+            steps: ["Request frequency", "Existing documentation", "Feasibility of independent execution"],
+            resultLines: ["Start with what partners can do but don’t know how"],
+          },
+        },
+        {
+          heading: "A small experiment before a large investment",
+          body: [
+            "I developed a scenario-based business case to estimate the potential value of partner autonomy. The central scenario suggests roughly 37 hours of capacity could be recovered each month, around 440 hours a year. This is an estimate, not a validated saving.",
+            "The model also exposed two important uncertainties: the actual time spent per request, and the proportion of requests documentation could genuinely prevent. Rather than presenting the estimate as guaranteed savings, I used it to define what a pilot needs to validate.",
+            "The measurement framework compares request volumes between pilot and non-pilot partners, tracks time spent on recurring support, and checks whether recovered capacity is redirected toward roadmap initiatives.",
+          ],
+          bullets: [
+            "Proposed pilot: 5–8 task-based guides",
+            "2–3 pilot partners",
+            "~10 production days",
+            "2 months of measurement before deciding whether to scale",
+          ],
+        },
+      ],
+      vision: {
+        heading: "Auditing the existing knowledge",
+        body: [
+          "I audited the Notion documentation ecosystem to understand what partners could actually rely on.",
+          "The problem wasn’t only the quantity of documentation. It was how accessible it was, and how it was organised — around internal structure rather than around the tasks partners actually need to complete.",
+        ],
+        flow: {
+          steps: ["2,151 Notion pages", "222 empty · 161 duplicate-content"],
+          resultLines: ["Only 1 of 55 usage guides published for partners"],
+        },
+      },
+      layers: {
+        heading: "Separating documentation from product problems",
+        intro:
+          "Not every support request is a documentation problem. The discovery revealed three different situations.",
+        items: [
+          {
+            name: "Documentation",
+            description:
+              "Can do it, doesn’t know how. Provide task-based guidance, accessible where the action takes place.",
+          },
+          {
+            name: "UX simplification",
+            description:
+              "Can do it, but the workflow is too complex. Reduce unnecessary steps and improve the product experience.",
+          },
+          {
+            name: "Product capability",
+            description:
+              "Cannot do it independently. Enable the necessary permissions or functionality.",
+          },
+        ],
+        closing:
+          "This changed the scope of the initiative: documentation became one of several ways to increase partner autonomy, not the solution.",
+      },
+      comparison: {
+        heading:
+          "The question wasn’t how much documentation to create. It was where documentation could actually change behaviour.",
+        intro:
+          "The organisation already had thousands of documentation pages, yet partners continued asking internal teams to complete routine tasks.",
+        options: [
+          {
+            label: "Option 1",
+            title: "Rebuild the documentation system",
+            description:
+              "Clean up Notion, rewrite existing content and create a comprehensive partner knowledge base.",
+          },
+          {
+            label: "Option 2",
+            title: "Targeted autonomy pilot",
+            description:
+              "Identify frequent requests, verify partner feasibility and publish a small number of task-based guides.",
+          },
+        ],
+        decision: "Option 2",
+        closing:
+          "A comprehensive knowledge base would be an output, not proof of value. The real question was whether the right guidance at the right moment could reduce partner dependency.",
+      },
+      actionsHeading: "Turning a documentation idea into a product discovery and investment decision.",
+      actions: [
+        "Analysed operational requests to quantify recurring partner dependency.",
+        "Connected support demand with Product capacity and roadmap opportunity cost.",
+        "Audited the documentation ecosystem and identified gaps.",
+        "Segmented requests into documentation, UX complexity and missing product capabilities.",
+        "Prioritised opportunities based on demand and feasibility.",
+        "Built a scenario-based business case.",
+        "Defined the pilot, measurement framework and success criteria.",
+        "Proposed a sustainable governance model for documentation and partner autonomy.",
+      ],
+      resultsHeading: "Where we stand",
+      results: [
+        "The project is currently in discovery. No adoption or operational impact results are available yet.",
+        "The analysis classified 57% of requests as potentially avoidable — a significant opportunity to reduce recurring partner dependency, and a focused strategy for testing it. The classification is yet to be validated, and the actual reduction in requests has not been measured.",
+        "The proposed pilot will validate the actual capacity recovered before committing to a larger investment.",
+        "Next steps: measure the actual time spent on recurring requests, confirm which tasks partners can perform independently, select 2–3 pilot partners, publish 5–8 targeted guides, compare request volumes and capacity recovered, then decide whether to scale based on measured impact and implementation costs.",
+      ],
+      secondaryMetric: {
+        value: "~37 hours/month",
+        label: "estimated capacity recovery",
+        context: "central scenario of the business case",
+        note: "Estimated, not yet validated",
+      },
+      learnings: [
+        "A request for documentation may hide a product problem. When users repeatedly ask for help, the issue might be missing knowledge, unnecessary complexity or missing capabilities. Distinguishing between them is part of product discovery.",
+        "Quantifying the problem changes the conversation. A documentation initiative can easily become a content-production project. Connecting recurring requests to operational effort and roadmap capacity makes the investment decision much more meaningful.",
+        "The best first step is the one that reduces uncertainty. The full initiative could require significant effort. A small pilot lets us test the assumptions that matter most before committing to that investment.",
+        "Saving time isn’t the same as creating value. Even if partner requests decrease, the benefit only materialises if recovered capacity is deliberately redirected toward higher-value work.",
+      ],
+    },
+  },
+  {
+    slug: "multi-ads-acquisition",
+    seo: {
+      title: "Scaling Email Acquisition Through Dynamic Multi-Ads | Audrey Delaye",
+      description:
+        "A product management case study: turning existing email traffic into an acquisition opportunity through dynamic offer selection, contextual measurement and marketing autonomy.",
+    },
+    title: "Scaling Email Acquisition Through Dynamic Multi-Ads",
+    subtitle:
+      "Turning existing email traffic into a new acquisition opportunity — while designing for relevance, measurability and marketing autonomy.",
+    category: "Product",
+    description:
+      "Three ideas drive the project: an existing email audience, dynamic offer selection and data-driven optimisation.",
+    image: {
+      src: "/projects/multi-ads-acquisition.svg",
+      alt: "A catalogue of five offers, one excluded, three selected into an email, and performance measured by email context",
+    },
+    metrics: {
+      mainResult: "Up to 3 offers",
+      label: "per email, selected dynamically from a catalogue",
+      context: "MVP built · no performance results reported",
+    },
+    content: {
+      situationHeading:
+        "Our partners needed more leads. Our existing acquisition channels were reaching their limits.",
+      context:
+        "Partner growth depends on a consistent flow of qualified leads. But increasing acquisition volume was becoming harder: existing channels were showing signs of saturation, while the emails already reaching users remained underexploited. Most emails focused on a limited set of offers, leaving little room to expose users to other relevant partner products.",
+      problem:
+        "The opportunity was to rethink email not just as a communication channel, but as an additional acquisition surface. But displaying more advertising wasn’t enough: the challenge was to create more conversion opportunities without compromising relevance or increasing operational complexity.",
+      situationFlow: {
+        frameLabel: "Three challenges",
+        steps: ["Acquisition beyond new channels", "Measurable performance"],
+        resultLines: ["Marketing autonomy"],
+      },
+      situationQuotes: [
+        "How might we generate more acquisition opportunities from existing email traffic, without sacrificing relevance or making campaign management harder?",
+      ],
+      narrative: [
+        {
+          heading: "Identifying an untapped acquisition opportunity",
+          body: [
+            "Four signals pointed in the same direction. The product hypothesis followed from them: instead of acquiring more traffic, could we create more value from the audience we already reach?",
+            "The goal wasn’t simply to add advertising. It was to make better use of touchpoints that already existed.",
+          ],
+          bullets: [
+            "Growing partner demand for qualified leads",
+            "Difficulty scaling existing acquisition channels",
+            "Limited personalisation of advertising content",
+            "Existing email traffic not fully leveraged",
+          ],
+          flow: {
+            steps: ["Existing email audience", "Relevant partner offers"],
+            resultLines: ["Additional acquisition surface"],
+          },
+        },
+      ],
+      paths: {
+        heading: "Designing dynamic offer selection",
+        intro:
+          "Marketing teams define a catalogue of offers — creative assets, destination links, priorities and eligibility rules. For each user, the system selects up to three available offers. The selection logic stays deliberately simple and rule-based, ahead of any advanced recommendation engine.",
+        inputs: [
+          { label: "Catalogue", description: "Offers A, B, C, D, E" },
+          { label: "Eligibility rule", description: "The user already owns A → A is excluded" },
+        ],
+        items: [
+          { name: "Offer B", description: "Displayed" },
+          { name: "Offer C", description: "Displayed" },
+          { name: "Offer D", description: "Displayed" },
+        ],
+        closing:
+          "The challenge: offer several relevant opportunities while excluding products the user already owns.",
+      },
+      vision: {
+        heading: "Understanding the limits of measurement",
+        body: [
+          "Aggregated measurement shows which ad generated clicks, which ad generated sales and how an offer performed overall. It doesn’t show which email generated the conversion, which email category performed best, which audience context was most effective, or where Multi-Ads should be placed or reduced.",
+          "Knowing which ad performs is not the same as knowing why and where it performs.",
+          "The envisioned tracking evolves from Ad → Click → Sale to a target where the email and its context travel with the ad. The aim is to let marketing teams optimise placements on more precise data. This enriched tracking is a design target, not a confirmed delivery.",
+        ],
+        flow: {
+          frameLabel: "Target tracking",
+          steps: ["Email + Context + Ad", "Click"],
+          resultLines: ["Sale"],
+        },
+      },
+      layers: {
+        heading: "Designing for marketing autonomy across platforms",
+        intro:
+          "The two email platforms handle Multi-Ads very differently. The problem isn’t only making them work on several platforms — it’s making them simple and maintainable for marketing teams.",
+        items: [
+          {
+            name: "Salesforce Marketing Cloud",
+            description:
+              "Marketing manages offers in a spreadsheet or structured source → Data Extension → AMPscript display logic. Offers can change without editing the email code.",
+          },
+          {
+            name: "BlueShift",
+            description:
+              "Offers, links, images and display rules sit in Liquid templates. Updates need technical manipulation, which creates maintenance risk and operational dependency.",
+          },
+          {
+            name: "Target principle",
+            description:
+              "Data: offers, images, links, priorities. Logic: eligibility, exclusions, selection and display. Marketers manage the first; the system handles the second. An internal tool, first prototyped to replace the spreadsheet, now centralises offers and generates the Salesforce connector.",
+          },
+        ],
+        closing: "Separate what marketers manage from how the system displays it.",
+      },
+      comparison: {
+        heading: "Start with rules. Build intelligence only when the foundations are ready.",
+        intro:
+          "The project aimed at more relevant user journeys, more trust in the offers shown, and more leads and conversions. The project documentation compared two ways of choosing which offers appear in an email. A recommendation engine remained a long-term ambition.",
+        options: [
+          {
+            label: "Option 1",
+            title: "AI-driven selection",
+            description:
+              "An engine selects the best-performing content, based on global performance.",
+            advantages: ["Quick to set up", "No development", "Self-optimising"],
+            limits: [
+              "Bias toward dominant content",
+              "Little personalisation",
+              "No user segmentation",
+            ],
+          },
+          {
+            label: "Option 2",
+            title: "Rule-based dynamic blocks",
+            description: "Content is personalised according to an explicit set of rules.",
+            advantages: [
+              "Strong personalisation",
+              "Product control",
+              "Optimisation by segment",
+            ],
+            limits: ["Technical implementation", "Maintenance complexity"],
+          },
+        ],
+        decision: "Option 2",
+        decisionText:
+          "Start with explicit rules and a phased roadmap, then improve measurement and operational autonomy.",
+        closing:
+          "Relevance was the goal, and selection based on global performance offers little personalisation or segmentation. Rules give product control and optimisation by segment. Their main cost, implementation and maintenance, is what V1B and the internal tool work on. The rules approach doesn’t close the door on recommendations: V2 stays open as a separate initiative.",
+      },
+      roadmap: {
+        heading: "From a functional acquisition block to a scalable acquisition system.",
+        phases: [
+          {
+            label: "MVP",
+            name: "Make Multi-Ads possible",
+            points: [
+              "Enable multiple partner offers within an existing email.",
+              "Use a catalogue, simple priorities and eligibility rules.",
+              "Keep implementation scope limited.",
+            ],
+            status: {
+              label: "Built · partner rollout started",
+              state: "live",
+              note: "Blocks created for partners and partners trained. Use in sent emails and scale of deployment are not documented here.",
+            },
+          },
+          {
+            label: "V1A",
+            name: "Make performance understandable",
+            points: [
+              "Associate clicks and sales with their email context.",
+              "Identify the most effective placements, email types and audiences.",
+              "Improve optimisation decisions.",
+            ],
+            status: {
+              label: "In progress",
+              state: "progress",
+              note: "Contextual attribution is not confirmed as delivered.",
+            },
+          },
+          {
+            label: "V1B",
+            name: "Make campaign management autonomous",
+            points: [
+              "Remove the need to edit Liquid code for routine changes in BlueShift.",
+              "Separate offer configuration from display logic.",
+              "Reduce operational dependency and maintenance risk.",
+            ],
+            status: {
+              label: "In progress",
+              state: "progress",
+              note: "An internal tool already centralises offers for Salesforce. The BlueShift connector and final validation were still open at the last documented update.",
+            },
+          },
+          {
+            label: "V2",
+            name: "Explore intelligent recommendations",
+            points: [
+              "Consider a dedicated Recommendation Engine as a separate product initiative.",
+              "Algorithm and capabilities are not defined in the current project.",
+            ],
+            status: { label: "Planned · not started", state: "planned" },
+          },
+        ],
+        note: "Statuses reflect the last documented project updates. Planned phases are not shipped.",
+      },
+      actionsHeading: "Turning an acquisition idea into a phased product system.",
+      actions: [
+        "Framed the acquisition opportunity.",
+        "Structured the problem and success criteria.",
+        "Defined a phased product approach.",
+        "Translated acquisition needs into functional requirements.",
+        "Specified analytics requirements and measurement dimensions.",
+        "Identified platform-specific operational constraints.",
+        "Designed for marketing autonomy and maintainability.",
+        "Separated immediate needs from longer-term product ambitions.",
+      ],
+      successFramework: {
+        heading: "Measuring more than additional clicks.",
+        groups: [
+          {
+            name: "Acquisition",
+            items: [
+              "Leads generated through email",
+              "Emails using Multi-Ads",
+              "Associated sales and conversions",
+            ],
+          },
+          {
+            name: "Analytics",
+            items: [
+              "Share of Multi-Ads sales attributable to a source email",
+              "Ability to analyse performance by email context",
+              "Number of analyses possible without technical intervention",
+            ],
+          },
+          {
+            name: "Operational autonomy",
+            items: [
+              "BlueShift campaigns using Multi-Ads",
+              "Offer updates completed without developer support",
+              "Time required to update campaigns",
+            ],
+          },
+          {
+            name: "Quality",
+            items: [
+              "Partner satisfaction with lead quality",
+              "Perceived relevance of displayed offers",
+            ],
+          },
+        ],
+        note: "These are target KPIs, not results.",
+      },
+      resultsHeading: "Building the foundations for measurable, scalable email acquisition.",
+      status: {
+        steps: [
+          "Internal tool deployed: offer library and Salesforce connector",
+          "Prototype, including Salesforce analytics, validated by Ops",
+          "Tested on each partner setup",
+          "Blocks created for partners; training under way",
+        ],
+      },
+      results: [
+        "No performance results are reported in this case study. The measurement framework above defines what will be tracked.",
+        "Next: validate the acquisition opportunity with measurable performance data.",
+        "Next: improve attribution by email context.",
+        "Next: simplify campaign administration.",
+        "Next: use the resulting insights to inform future recommendation capabilities.",
+      ],
+      learnings: [
+        "Growth doesn’t always require a new channel. Existing user touchpoints can offer new acquisition opportunities when their potential is reconsidered.",
+        "Personalisation starts with relevance, not necessarily algorithms. Simple eligibility and exclusion rules can be a pragmatic foundation before advanced recommendations.",
+        "Tracking is part of the product, not an afterthought. Without contextual attribution, teams may see performance without understanding how to improve it.",
+        "A feature isn’t scalable if operating it requires engineering support. Operational autonomy and maintainability matter as much as technical functionality.",
       ],
     },
   },

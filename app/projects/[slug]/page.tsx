@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { projects, type Flow, type ProjectContent } from "../../../data/projects";
 
@@ -9,6 +10,16 @@ type ProjectPageProps = {
 
 export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: ProjectPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const project = projects.find((item) => item.slug === slug);
+
+  // Only projects that declare their own SEO metadata override the site-wide one.
+  return project?.seo ? { title: project.seo.title, description: project.seo.description } : {};
 }
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
@@ -346,9 +357,118 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   });
 
   const comparison = content.comparison;
+  const detailedComparison = comparison?.options.some(
+    (option) => option.advantages || option.limits,
+  );
   const chosen = comparison?.decision
     ? comparison.options.find((option) => option.label === comparison.decision)
     : undefined;
+
+  const roadmap = content.roadmap;
+  const roadmapSection = roadmap && (
+    <Section key="roadmap" className="border-t border-stone-200/80">
+      <SectionLabel>THE PRODUCT STRATEGY</SectionLabel>
+      <h2 className="mt-4 max-w-3xl text-2xl font-semibold leading-tight tracking-tight md:text-3xl">
+        {roadmap.heading}
+      </h2>
+      {roadmap.intro && <p className="mt-4 max-w-2xl leading-relaxed">{roadmap.intro}</p>}
+
+      <ol className="mt-8 grid gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
+        {roadmap.phases.map((phase) => {
+          const planned = phase.status.state === "planned";
+          return (
+            <li key={phase.label} className="flex flex-col">
+              <div className="flex items-center gap-3" aria-hidden>
+                <span
+                  className={`h-3 w-3 shrink-0 rounded-full border-2 ${
+                    phase.status.state === "live"
+                      ? "border-about-accent bg-about-accent"
+                      : phase.status.state === "progress"
+                        ? "border-about-accent bg-about-cream"
+                        : "border-dashed border-stone-400 bg-about-cream"
+                  }`}
+                />
+                <span
+                  className={`h-px flex-1 ${
+                    planned ? "border-t border-dashed border-stone-300" : "bg-about-accent/40"
+                  }`}
+                />
+              </div>
+
+              <div
+                className={`mt-4 flex-1 border-t pt-3 ${
+                  planned ? "border-dashed border-stone-300" : "border-about-accent/40"
+                }`}
+              >
+                <p className="text-sm font-semibold !text-about-accent-ink">{phase.label}</p>
+                <h3 className="mt-1 text-lg font-semibold leading-snug tracking-tight">
+                  {phase.name}
+                </h3>
+                <ul className="mt-3 space-y-2 text-sm leading-relaxed">
+                  {phase.points.map((point) => (
+                    <li key={point} className="flex gap-2.5">
+                      <span
+                        className="mt-2 h-1 w-1 shrink-0 rounded-full bg-about-accent"
+                        aria-hidden
+                      />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-4">
+                  <p
+                    className={`inline-block rounded-full border px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-[0.1em] ${
+                      phase.status.state === "live"
+                        ? "border-about-accent bg-about-blush !text-about-accent-ink"
+                        : phase.status.state === "progress"
+                          ? "border-about-accent/50 !text-about-accent-ink"
+                          : "border-dashed border-stone-300 !text-stone-500"
+                    }`}
+                  >
+                    <span className="sr-only">Status: </span>
+                    {phase.status.label}
+                  </p>
+                  {phase.status.note && (
+                    <p className="mt-2 text-xs leading-relaxed">{phase.status.note}</p>
+                  )}
+                </div>
+              </div>
+            </li>
+          );
+        })}
+      </ol>
+      {roadmap.note && <p className="mt-8 text-sm italic">{roadmap.note}</p>}
+    </Section>
+  );
+
+  const successFramework = content.successFramework;
+  const successSection = successFramework && (
+    <Section key="success" className="border-t border-stone-200/80">
+      <SectionLabel>SUCCESS FRAMEWORK</SectionLabel>
+      <h2 className="mt-4 max-w-3xl text-2xl font-semibold leading-tight tracking-tight md:text-3xl">
+        {successFramework.heading}
+      </h2>
+      <div className="mt-8 grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-4">
+        {successFramework.groups.map((group) => (
+          <div key={group.name} className="border-t border-stone-300/70 pt-4">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.1em]">{group.name}</h3>
+            <ul className="mt-3 space-y-2 text-sm leading-relaxed">
+              {group.items.map((item) => (
+                <li key={item} className="flex gap-2.5">
+                  <span
+                    className="mt-2 h-1 w-1 shrink-0 rounded-full bg-about-accent"
+                    aria-hidden
+                  />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+      {successFramework.note && <Closing>{successFramework.note}</Closing>}
+    </Section>
+  );
 
   const roleSection = (
     <Section key="role" className="border-t border-stone-200/80">
@@ -623,7 +743,93 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 </h2>
               </div>
 
-              {chosen ? (
+              {detailedComparison && chosen ? (
+                <div className="mt-8">
+                  {comparison.intro && (
+                    <div className="max-w-3xl border-t border-stone-300/70 pt-4">
+                      <MiniLabel>Situation</MiniLabel>
+                      <p className="mt-2 leading-relaxed">{comparison.intro}</p>
+                    </div>
+                  )}
+
+                  <ul className="mt-8 grid gap-x-8 gap-y-6 md:grid-cols-2">
+                    {comparison.options.map((option) => {
+                      const isChosen = option.label === comparison.decision;
+                      return (
+                        <li
+                          key={option.label}
+                          className={`border-t pt-4 ${
+                            isChosen ? "border-about-accent/50" : "border-stone-300/70"
+                          }`}
+                        >
+                          <MiniLabel>
+                            {option.label}
+                            {isChosen && " · Chosen"}
+                          </MiniLabel>
+                          <p className="mt-2 text-lg font-semibold leading-snug !text-stone-900">
+                            {option.title ?? option.label}
+                          </p>
+                          <p className="mt-1 text-sm leading-relaxed">{option.description}</p>
+                          <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                            {option.advantages && (
+                              <div>
+                                <MiniLabel>Advantages</MiniLabel>
+                                <ul className="mt-2 space-y-1.5 text-sm leading-snug">
+                                  {option.advantages.map((item) => (
+                                    <li key={item} className="flex gap-2.5">
+                                      <span
+                                        className="mt-2 h-1 w-1 shrink-0 rounded-full bg-about-accent"
+                                        aria-hidden
+                                      />
+                                      <span>{item}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                            {option.limits && (
+                              <div>
+                                <MiniLabel>Limits</MiniLabel>
+                                <ul className="mt-2 space-y-1.5 text-sm leading-snug">
+                                  {option.limits.map((item) => (
+                                    <li key={item} className="flex gap-2.5">
+                                      <span
+                                        className="mt-2 h-1 w-1 shrink-0 rounded-full bg-stone-400"
+                                        aria-hidden
+                                      />
+                                      <span>{item}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+
+                  <div className="mt-8 grid gap-x-8 gap-y-6 md:grid-cols-2">
+                    <div className="border-t border-about-accent/50 pt-4">
+                      <MiniLabel>Decision</MiniLabel>
+                      <p className="mt-2 text-xl font-semibold tracking-tight !text-about-accent-ink">
+                        {chosen.title ?? chosen.label}
+                      </p>
+                      <p className="mt-1 text-sm">
+                        {comparison.decisionText ?? chosen.description}
+                      </p>
+                    </div>
+                    {comparison.closing && (
+                      <div className="border-t border-stone-300/70 pt-4">
+                        <MiniLabel>Why</MiniLabel>
+                        <p className="mt-2 leading-relaxed font-medium !text-stone-900">
+                          {comparison.closing}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ) : chosen ? (
                 <div className="mt-8 grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-4">
                   {comparison.intro && (
                     <div className="border-t border-stone-300/70 pt-4">
@@ -707,18 +913,25 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </Section>
         )}
 
-        {/* MY ROLE / OUTCOME (order configurable per project) */}
+        {/* THE PRODUCT STRATEGY (optional roadmap) */}
+        {roadmapSection}
+
+        {/* MY ROLE / SUCCESS FRAMEWORK / OUTCOME (order configurable per project) */}
         {content.resultsBeforeActions
           ? [outcomeSection, roleSection]
-          : [roleSection, outcomeSection]}
+          : [roleSection, successSection, outcomeSection]}
 
         {/* WHAT I LEARNED */}
         <Section
           className={content.resultsBeforeActions ? "border-t border-stone-200/80" : ""}
         >
           <SectionLabel>WHAT I LEARNED</SectionLabel>
-          <div className="mt-6 grid gap-8 md:grid-cols-3 md:gap-10">
-            {content.learnings.slice(0, 3).map((learning, index) => {
+          <div
+            className={`mt-6 grid gap-8 md:gap-10 ${
+              content.learnings.length > 3 ? "md:grid-cols-2" : "md:grid-cols-3"
+            }`}
+          >
+            {content.learnings.map((learning, index) => {
               const { head, rest } = splitLearning(learning);
               return (
                 <div key={learning} className="border-t border-stone-300/70 pt-5">
