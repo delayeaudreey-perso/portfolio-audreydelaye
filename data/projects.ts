@@ -1047,6 +1047,11 @@ export const projects: Project[] = [
   },
   {
     slug: "partner-autonomy-documentation",
+    seo: {
+      title: "Partner Autonomy & Product Discovery | Audrey Delaye",
+      description:
+        "How I analysed recurring partner support requests, identified opportunities for self-service, and designed a measurable product discovery pilot to improve partner autonomy.",
+    },
     title: "Turning Partner Support Requests Into Product Autonomy",
     subtitle:
       "Understanding why partners depend on internal teams for routine tasks — and designing a measurable path toward self-service.",
